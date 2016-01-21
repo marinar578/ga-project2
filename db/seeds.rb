@@ -11,11 +11,11 @@ else
     conn = PG.connect(dbname: "wiki")
 end
 
-conn.exec("DROP TABLE IF EXISTS users")
-conn.exec("DROP TABLE IF EXISTS articles")
-conn.exec("DROP TABLE IF EXISTS categories")
-conn.exec("DROP TABLE IF EXISTS cat_art")
-conn.exec("DROP TABLE IF EXISTS updates")
+conn.exec("DROP TABLE IF EXISTS users CASCADE")
+conn.exec("DROP TABLE IF EXISTS articles CASCADE")
+conn.exec("DROP TABLE IF EXISTS categories CASCADE")
+conn.exec("DROP TABLE IF EXISTS cat_art CASCADE")
+conn.exec("DROP TABLE IF EXISTS updates CASCADE")
 
 conn.exec("CREATE TABLE users(
     id SERIAL PRIMARY KEY,
@@ -26,26 +26,25 @@ conn.exec("CREATE TABLE users(
   )"
 )
 
-conn.exec("CREATE TABLE cat_art(
-    id SERIAL PRIMARY KEY,
-    article_id INTEGER REFERENCES articles,
-    category_id INTEGER REFERENCES categories
-  )"
-)
 
 conn.exec("CREATE TABLE articles(
     id SERIAL PRIMARY KEY,
     title VARCHAR(255),
     creation_time TIMESTAMP DEFAULT current_timestamp,
-    user_id INTEGER REFERENCES users,
-    category_id INTEGER REFERENCES cat_art
+    user_id INTEGER REFERENCES users
   )"
 )
 
 conn.exec("CREATE TABLE categories(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255),
-    article_id INTEGER REFERENCES cat_art
+    name VARCHAR(255)
+  )"
+)
+
+conn.exec("CREATE TABLE cat_art(
+    id SERIAL PRIMARY KEY,
+    article_id INTEGER REFERENCES articles,
+    category_id INTEGER REFERENCES categories
   )"
 )
 
