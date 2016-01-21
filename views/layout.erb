@@ -1,20 +1,51 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/skeleton.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
-<header>header</header>
+    <title>Wiki</title>
 
-<%= yield%>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="css/jumbotron-narrow.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
+    <link href="css/signin.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
-<footer>footer</footer>
-    
-</body>
+    <script src="js/ie-emulation-modes-warning.js"></script>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="/">Home</a></li>
+            <li role="presentation"><a href="/articles">Articles</a></li>
+            <li role="presentation"><a href="/categories">Categories</a></li>
+            <li role="presentation"><a href="/users">Authors</a></li>
+            <% if current_user%>
+              <li role="presentation"><a href=<%="/users/#{current_user["id"]}"%>><%= current_user["fname"] %></a></li>
+            <%end%>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Wiki</h3>
+
+
+
+      <%= yield %>
+
+      <footer class="footer">
+        <p>&copy; 2016 Company, Inc.</p>
+      </footer>
+
+    </div>
+
+  </body>
 </html>
