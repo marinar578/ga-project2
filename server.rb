@@ -30,15 +30,16 @@ class Server < Sinatra::Base
         end
     end
 
-
+# -------------------------------------
     get "/" do 
-        if session["user_id"]
-            erb :articles
-        else
+        # if session["user_id"]
+        #     redirect "/articles"
+        # else
             erb :index
-        end
+        # end
     end
 
+# -------------------------------------
     get "/signup" do
         erb :signup
     end
@@ -60,6 +61,7 @@ class Server < Sinatra::Base
         redirect "/articles"
     end
 
+# -------------------------------------
     get "/login" do
         erb :login
     end
@@ -81,36 +83,48 @@ class Server < Sinatra::Base
         binding.pry
     end
 
+# -------------------------------------
     get "/articles" do
-
         @articles = db.exec_params("SELECT articles.id, articles.title, articles.creation_time, articles.user_id, articles.content, users.fname, users.lname FROM articles JOIN users ON articles.user_id = users.id").to_a
         
         if session["user_id"]
             erb :articles
         else
-            redirect "/"
+            redirect "/signup"
         end
     end
 
+# -------------------------------------
+    get "/create" do
+        erb :create
+    end
+
+    post "/create" do
+
+    end
+
+# -------------------------------------
     get "/articles/:id" do
 
         if session["user_id"]
             erb :article
         else
-            redirect "/"
+            redirect "/signup"
         end
     end
 
+# -------------------------------------
     get "/articles/:id/edit" do
 
         if session["user_id"]
             erb :update
         else
-            redirect "/"
+            redirect "/signup"
         end
 
     end
 
+# -------------------------------------
     get "/categories" do
 
         @categories = db.exec_params("SELECT * FROM categories").to_a
@@ -118,37 +132,40 @@ class Server < Sinatra::Base
         if session["user_id"]
             erb :categories
         else
-            redirect "/"
+            redirect "/signup"
         end
 
     end
 
+# -------------------------------------
     get "/categories/:id" do
 
         if session["user_id"]
             erb :category
         else
-            redirect "/"
+            redirect "/signup"
         end
 
     end
 
+# -------------------------------------
     get "/users" do 
 
         if session["user_id"]
             erb :users
         else
-            redirect "/"
+            redirect "/signup"
         end
 
     end
 
+# -------------------------------------
     get "/users/:id" do
 
         if session["user_id"]
             erb :user
         else
-            redirect "/"
+            redirect "/signup"
         end
 
     end
