@@ -75,13 +75,16 @@ class Server < Sinatra::Base
             erb :login
           end
         else
-          @error = "Invalid Username"
+          @error = "Invalid Email"
           erb :login
         end
         binding.pry
     end
 
     get "/articles" do
+
+        @articles = db.exec_params("SELECT articles.id, articles.title, articles.creation_time, articles.user_id, articles.content, users.fname, users.lname FROM articles JOIN users ON articles.user_id = users.id").to_a
+        
         if session["user_id"]
             erb :articles
         else
@@ -90,6 +93,7 @@ class Server < Sinatra::Base
     end
 
     get "/articles/:id" do
+
         if session["user_id"]
             erb :article
         else
@@ -98,23 +102,55 @@ class Server < Sinatra::Base
     end
 
     get "/articles/:id/edit" do
-        erb :update
+
+        if session["user_id"]
+            erb :update
+        else
+            redirect "/"
+        end
+
     end
 
     get "/categories" do
-        erb :categories
+
+        @categories = db.exec_params("SELECT * FROM categories").to_a
+
+        if session["user_id"]
+            erb :categories
+        else
+            redirect "/"
+        end
+
     end
 
     get "/categories/:id" do
-        erb :category
+
+        if session["user_id"]
+            erb :category
+        else
+            redirect "/"
+        end
+
     end
 
     get "/users" do 
-        erb :users
+
+        if session["user_id"]
+            erb :users
+        else
+            redirect "/"
+        end
+
     end
 
     get "/users/:id" do
-        erb :user
+
+        if session["user_id"]
+            erb :user
+        else
+            redirect "/"
+        end
+
     end
    
 end

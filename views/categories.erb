@@ -1,1 +1,3 @@
-<h1>categories</h1>
+    <% @categories.each do |cat| %>
+        <h2><a href=<%="/categories/#{cat["id"]}"%>><%= cat["name"]%></a></h2>
+    <% end %>
