@@ -26,6 +26,13 @@ conn.exec("CREATE TABLE users(
   )"
 )
 
+conn.exec("CREATE TABLE cat_art(
+    id SERIAL PRIMARY KEY,
+    article_id INTEGER REFERENCES articles,
+    category_id INTEGER REFERENCES categories
+  )"
+)
+
 conn.exec("CREATE TABLE articles(
     id SERIAL PRIMARY KEY,
     title VARCHAR(255),
@@ -39,13 +46,6 @@ conn.exec("CREATE TABLE categories(
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
     article_id INTEGER REFERENCES cat_art
-  )"
-)
-
-conn.exec("CREATE TABLE cat_art(
-    id SERIAL PRIMARY KEY,
-    article_id INTEGER REFERENCES cat_art,
-    category_id INTEGER REFERENCES cat_art
   )"
 )
 
