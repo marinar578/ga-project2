@@ -2,6 +2,7 @@ require "sinatra/base"
 require "pg"
 require "bcrypt"
 require 'digest/md5'
+require "pry"
 
 
 class Server < Sinatra::Base 
@@ -25,18 +26,17 @@ class Server < Sinatra::Base
         if session["user_id"]
           @user ||= db.exec_params("SELECT * FROM users WHERE id = $1", [session["user_id"]]).first
         else
-          # THE USER IS NOT LOGGED IN
           {}
         end
     end
 
 
     get "/" do 
-        # if not signed in:
-        erb :index
-
-        # if signed in, redirect:
-        # redirect "/articles"
+        if session["user_id"]
+            erb :articles
+        else
+            erb :index
+        end
     end
 
     get "/signup" do
@@ -48,8 +48,7 @@ class Server < Sinatra::Base
         lname = params[:lname]
         email_address = params[:email].downcase
         
-        password = params[:password]
-        encrypted_password = BCrypt::Password.create(params[:login_password])
+        encrypted_password = BCrypt::Password.create(params[:password])
         
         hash = Digest::MD5.hexdigest(email_address)
         image = "http://www.gravatar.com/avatar/#{hash}"
@@ -66,27 +65,36 @@ class Server < Sinatra::Base
     end
 
     post "/login" do
-        # if login is successful, redirect:
-        email = params[:email]
-        password = params[:password]
-
-
-        # erb :articles
+        @user = db.exec_params("SELECT * FROM users WHERE email = $1", [params[:email]]).first
+        if @user
+          if BCrypt::Password.new(@user["password_digest"]) == params[:password]
+            session["user_id"] = @user["id"]
+            redirect "/articles"
+          else
+            @error = "Invalid Password"
+            erb :login
+          end
+        else
+          @error = "Invalid Username"
+          erb :login
+        end
+        binding.pry
     end
 
     get "/articles" do
-        # this doesn't work but something like this has to happen for everything
         if session["user_id"]
             erb :articles
         else
             redirect "/"
         end
-
-
     end
 
     get "/articles/:id" do
-        erb :article
+        if session["user_id"]
+            erb :article
+        else
+            redirect "/"
+        end
     end
 
     get "/articles/:id/edit" do
