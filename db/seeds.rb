@@ -8,7 +8,7 @@ if ENV["RACK_ENV"] == "production"
         user: ENV["POSTGRES_USER"]
      )
 else
-    conn = PG.connect(dbname: "portfolio")
+    conn = PG.connect(dbname: "wiki")
 end
 
 
@@ -55,7 +55,7 @@ conn.exec("CREATE TABLE updates(
 )
 
 
-# conn.exec("INSERT INTO contact_data (name, email, message) VALUES (
+# conn.exec("INSERT INTO wiki (name, email, message) VALUES (
 #     'Bryan',
 #     'bryan.mytko@generalassemb.ly',
 #     'This is a test message from the seeded data'
