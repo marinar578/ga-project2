@@ -27,5 +27,13 @@ class Server < Sinatra::Base
     get "/categories/:id" do
         erb :category
     end
+
+    get "/users" do 
+        erb :users
+    end
+
+    get "/users/:id" do
+        erb :user
+    end
    
 end
