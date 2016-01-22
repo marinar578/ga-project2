@@ -1,0 +1,25 @@
+        <h2 class="sub-header">Categories</h2>
+          <p><a class="btn btn-lg btn-success" href="/create" role="button">Add category</a></p>
+          <div class="table-responsive">
+            <table class="table categories">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th></th>
+                  <th>Contact Info</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @users.each do |user| %>
+                    <tr>
+                      <td><a href=<%="/users/#{user["id"]}"%>><%= "#{user["fname"]} #{user["lname"]}"%></a></td>
+                      <td><img src=<%="#{user["image"]}"%>></td>
+                      <td><%= user["email"] %></td>
+                    </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>

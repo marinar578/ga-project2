@@ -173,7 +173,7 @@ class Server < Sinatra::Base
 # -------------------------------------
     get "/categories/:id" do
         @category = db.exec_params("SELECT * FROM categories WHERE id = $1", [params[:id]]).first
-        @articles = db.exec_params("SELECT categories.id, categories.name, cat_art.article_id, articles.title, articles.creation_time, articles.content, users.fname, users.lname FROM categories JOIN cat_art ON categories.id = cat_art.category_id JOIN articles ON cat_art.article_id = articles.id JOIN users ON articles.user_id = users.id WHERE categories.id = $1", [params[:id]]).to_a
+        @articles = db.exec_params("SELECT categories.id, categories.name, cat_art.article_id, articles.title, articles.creation_time, articles.content, articles.user_id, users.fname, users.lname FROM categories JOIN cat_art ON categories.id = cat_art.category_id JOIN articles ON cat_art.article_id = articles.id JOIN users ON articles.user_id = users.id WHERE categories.id = $1", [params[:id]]).to_a
 
         if session["user_id"]
             erb :category
@@ -185,6 +185,7 @@ class Server < Sinatra::Base
 
 # -------------------------------------
     get "/users" do 
+        @users = db.exec_params("SELECT * FROM users").to_a
 
         if session["user_id"]
             erb :users
@@ -196,7 +197,9 @@ class Server < Sinatra::Base
 
 # -------------------------------------
     get "/users/:id" do
-
+        @user = db.exec_params("SELECT * FROM users WHERE id = $1", [params[:id]]).first
+        @articles = db.exec_params("SELECT articles.id, articles.title, articles.creation_time, articles.user_id, articles.content, users.fname, users.lname FROM articles JOIN users ON articles.user_id = users.id").to_a
+ 
         if session["user_id"]
             erb :user
         else
