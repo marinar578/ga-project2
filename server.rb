@@ -3,7 +3,7 @@ require "pg"
 require "bcrypt"
 require 'digest/md5'
 require "pry"
-
+require "active_support/all"
 
 class Server < Sinatra::Base 
 
@@ -97,6 +97,7 @@ class Server < Sinatra::Base
 # -------------------------------------
     get "/create" do
         if session["user_id"]
+            @categories = db.exec_params("SELECT * FROM categories").to_a
             erb :create_article
         else
             redirect "/signup"
@@ -104,17 +105,46 @@ class Server < Sinatra::Base
     end
 
     post "/create" do
+        title = params[:title]
+        content = params[:content]
+        user_id = current_user["id"].to_i
+
+        # categories
+        category = params[:category]
+        cat_id = db.exec_params("SELECT * FROM categories WHERE name = $1", [category]).first["id"]
+        new_category = params[:new_category]
+
+        @new_article = db.exec_params("INSERT INTO articles (title, content, user_id) VALUES ($1, $2, $3) RETURNING id", [title, content,  user_id])
+
+        if new_category
+            new_cat_id = db.exec_params("INSERT INTO categories (name) VALUES ($1) RETURNING id", [category])
+            db.exec_params("INSERT INTO cat_art (article_id, category_id) VALUES ($1, $2)", [@new_article, new_cat_id])
+        else
+            if category == "None"
+                db.exec_params("INSERT INTO cat_art (article_id) VALUES ($1)", [@new_article])
+            else
+                db.exec_params("INSERT INTO cat_art (article_id, category_id) VALUES ($1, $2)", [@new_article, cat_id])
+            end
+        end
+
+
+        redirect "/articles/#{new_article}"
+
 
     end
 
 # -------------------------------------
     get "/articles/:id" do
 
+        @article = db.exec_params("SELECT articles.id, articles.title, articles.user_id, articles.content, users.fname, users.lname FROM articles JOIN users ON users.id = articles.user_id WHERE articles.id = $1", [params[:id]]).first
+        @date = db.exec_params("SELECT creation_time FROM articles WHERE id = $1", [params[:id]]).first["creation_time"].to_datetime.to_date
+
         if session["user_id"]
             erb :article
         else
             redirect "/signup"
         end
+
     end
 
 # -------------------------------------
