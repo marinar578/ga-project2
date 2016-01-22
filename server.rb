@@ -160,7 +160,6 @@ class Server < Sinatra::Base
 
 # -------------------------------------
     get "/categories" do
-
         @categories = db.exec_params("SELECT * FROM categories").to_a
 
         if session["user_id"]
@@ -173,6 +172,8 @@ class Server < Sinatra::Base
 
 # -------------------------------------
     get "/categories/:id" do
+        @category = db.exec_params("SELECT * FROM categories WHERE id = $1", [params[:id]]).first
+        @articles = db.exec_params("SELECT categories.id, categories.name, cat_art.article_id, articles.title, articles.creation_time, articles.content, users.fname, users.lname FROM categories JOIN cat_art ON categories.id = cat_art.category_id JOIN articles ON cat_art.article_id = articles.id JOIN users ON articles.user_id = users.id WHERE categories.id = $1", [params[:id]]).to_a
 
         if session["user_id"]
             erb :category

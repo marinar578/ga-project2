@@ -1,3 +1,21 @@
-    <% @categories.each do |cat| %>
-        <h2><a href=<%="/categories/#{cat["id"]}"%>><%= cat["name"]%></a></h2>
-    <% end %>
+         <h2 class="sub-header">Categories</h2>
+          <p><a class="btn btn-lg btn-success" href="/create" role="button">Add category</a></p>
+          <div class="table-responsive">
+            <table class="table categories">
+<!--               <thead>
+                <tr>
+                  <th>Categories</th>
+                </tr>
+              </thead> -->
+              <tbody>
+                <% @categories.each do |cat| %>
+                    <tr>
+                      <td><a href=<%="/categories/#{cat["id"]}"%>><%= cat["name"]%></a></td>
+                    </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
