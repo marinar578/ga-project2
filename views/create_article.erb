@@ -1,0 +1,24 @@
+    <div class="container">
+
+      <form class="form_signin new_article" method="post" action="/create">
+        <h2 class="form-signin-heading">New article</h2>
+
+        <div class="input"><input type="text" name="title" class="form-control" placeholder="Title" required autofocus></div>
+
+        <div class="input"><textarea name="content" class="form-control" placeholder="Article content here" required autofocus></textarea></div>
+
+        <div class="category">
+            <label for="category">Category</label>
+            <select class="form-control" name="category">
+                <option value="1">Gryffindor</option>
+                <option value="2" >Hufflepuff</option>
+                <option value="3">Ravenclaw</option>
+                <option value="4">Slytherin</option>
+            </select>
+        </div>
+
+
+        <button class="btn" type="submit">Submit</button>
+      </form>
+
+    </div> 

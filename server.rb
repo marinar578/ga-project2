@@ -96,7 +96,11 @@ class Server < Sinatra::Base
 
 # -------------------------------------
     get "/create" do
-        erb :create
+        if session["user_id"]
+            erb :create_article
+        else
+            redirect "/signup"
+        end
     end
 
     post "/create" do
@@ -117,7 +121,7 @@ class Server < Sinatra::Base
     get "/articles/:id/edit" do
 
         if session["user_id"]
-            erb :update
+            erb :update_article
         else
             redirect "/signup"
         end

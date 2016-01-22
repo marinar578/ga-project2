@@ -5,3 +5,28 @@ body{
 header{
     color: blue;
 }
+
+/* New Article Form */
+form.new_article div.input{
+  padding: 6px 0;
+}
+
+form.new_article input[type=text]{
+  padding: 10pt, 0;
+}
+
+form.new_article textarea.form-control {
+  position: relative;
+  height: 400pt;
+    -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+
+div.category {
+    padding: 20px 0;
+}
+
+/* Next thing*/
