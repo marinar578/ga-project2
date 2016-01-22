@@ -80,7 +80,6 @@ class Server < Sinatra::Base
           @error = "Invalid Email"
           erb :login
         end
-        binding.pry
     end
 
 # -------------------------------------
@@ -147,16 +146,6 @@ class Server < Sinatra::Base
 
     end
 
-# -------------------------------------
-    get "/articles/:id/edit" do
-
-        if session["user_id"]
-            erb :update_article
-        else
-            redirect "/signup"
-        end
-
-    end
 
 # -------------------------------------
     get "/categories" do
@@ -205,7 +194,45 @@ class Server < Sinatra::Base
         else
             redirect "/signup"
         end
+    end
+
+# edit user info (name, pw, email)
+    # -------------------------------------
+    get "/users/:id/edit" do
+        if current_user.length>0
+            @user = db.exec_params("SELECT * FROM users WHERE id = $1", [current_user["id"]]).first
+        end
+        # @articles = db.exec_params("SELECT articles.id, articles.title, articles.creation_time, articles.user_id, articles.content, users.fname, users.lname FROM articles JOIN users ON articles.user_id = users.id").to_a
+ 
+        if session["user_id"]
+            erb :update_user_info
+        else
+            redirect "/signup"
+        end
+    end
+
+# edit article
+    # -------------------------------------
+    get "/articles/:id/edit" do
+        @article = db.exec_params("SELECT articles.id, articles.title, articles.user_id, articles.content, users.fname, users.lname FROM articles JOIN users ON users.id = articles.user_id WHERE articles.id = $1", [params[:id]]).first
+       
+        if session["user_id"]
+            erb :update_article
+        else
+            redirect "/signup"
+        end
 
     end
+
+
+# add category
+    # -------------------------------------
+
+
+
+    # -------------------------------------
+
+
+    # -------------------------------------
    
 end
