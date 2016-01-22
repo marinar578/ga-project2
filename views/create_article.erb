@@ -8,7 +8,7 @@
         <div class="input"><textarea name="content" class="form-control" placeholder="Article content here" required autofocus></textarea></div>
 
         <div class="category">
-            <label for="category">Choose an existing category</label>
+            <label for="category">Choose a category</label>
             <select class="form-control" name="category">
                 <% @categories.each do |cat| %>
                     <option value=<%="#{cat["id"]}"%>><%= "#{cat["name"]}"%></option>
@@ -18,8 +18,8 @@
             </select>
         </div>
 
-        <label for="new_category">And/or add a new category here: </label>
-         <div class="input"><input type="text" name="new_category" class="form-control" placeholder="New category" required autofocus></div>
+<!--         <label for="new_category">And/or add a new category here: </label>
+         <div class="input"><input type="text" name="new_category" class="form-control" placeholder="New category" required autofocus></div> -->
 
 
         <button class="btn" type="submit">Submit</button>

@@ -96,7 +96,7 @@ class Server < Sinatra::Base
 # -------------------------------------
     get "/create" do
         if session["user_id"]
-            @categories = db.exec_params("SELECT * FROM categories").to_a
+            @categories = db.exec_params("SELECT * FROM categories ORDER BY name").to_a
             erb :create_article
         else
             redirect "/signup"
@@ -106,28 +106,30 @@ class Server < Sinatra::Base
     post "/create" do
         title = params[:title]
         content = params[:content]
-        user_id = current_user["id"].to_i
+        user_id = current_user["id"]
 
         # categories
-        category = params[:category]
-        cat_id = db.exec_params("SELECT * FROM categories WHERE name = $1", [category]).first["id"]
-        new_category = params[:new_category]
+        category = params[:category].to_i
+        # cat_id = db.exec_params("SELECT * FROM categories WHERE id = $1", [category]).first["id"]  #prob unnecessary, since category should return the same thing
 
-        @new_article = db.exec_params("INSERT INTO articles (title, content, user_id) VALUES ($1, $2, $3) RETURNING id", [title, content,  user_id])
+        # new_category = params[:new_category]
 
-        if new_category
-            new_cat_id = db.exec_params("INSERT INTO categories (name) VALUES ($1) RETURNING id", [category])
-            db.exec_params("INSERT INTO cat_art (article_id, category_id) VALUES ($1, $2)", [@new_article, new_cat_id])
-        else
-            if category == "None"
-                db.exec_params("INSERT INTO cat_art (article_id) VALUES ($1)", [@new_article])
-            else
-                db.exec_params("INSERT INTO cat_art (article_id, category_id) VALUES ($1, $2)", [@new_article, cat_id])
-            end
-        end
+        @new_article = db.exec_params("INSERT INTO articles (title, content, user_id) VALUES ($1, $2, $3) RETURNING id", [title, content,  user_id]).first["id"].to_i
+ 
+        db.exec_params("INSERT INTO cat_art (article_id, category_id) VALUES ($1, $2)", [@new_article, category])
+           
+        # if new_category
+        #     new_cat_id = db.exec_params("INSERT INTO categories (name) VALUES ($1) RETURNING id", [category])
+        #     db.exec_params("INSERT INTO cat_art (article_id, category_id) VALUES ($1, $2)", [@new_article, new_cat_id])
+        # else
+        #     if category == "None"
+        #         db.exec_params("INSERT INTO cat_art (article_id) VALUES ($1)", [@new_article])
+        #     else
+        #         db.exec_params("INSERT INTO cat_art (article_id, category_id) VALUES ($1, $2)", [@new_article, cat_id])
+        #     end
+        # end
 
-
-        redirect "/articles/#{new_article}"
+        redirect "/articles/#{@new_article}"
 
 
     end
@@ -149,7 +151,7 @@ class Server < Sinatra::Base
 
 # -------------------------------------
     get "/categories" do
-        @categories = db.exec_params("SELECT * FROM categories").to_a
+        @categories = db.exec_params("SELECT * FROM categories ORDER BY name").to_a
 
         if session["user_id"]
             erb :categories
