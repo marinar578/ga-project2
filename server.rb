@@ -8,6 +8,7 @@ require "redcarpet"
 
 class Server < Sinatra::Base 
   enable :sessions
+  set :method_override, true
 
   def db
     if ENV["RACK_ENV"] == "production"
@@ -182,7 +183,7 @@ class Server < Sinatra::Base
     login(:update_article)
   end
 
-  post "/articles/:id/edit" do
+  put "/articles/:id/edit" do
     title = params[:title]
     content = params[:content]
     user_id = current_user["id"].to_i
