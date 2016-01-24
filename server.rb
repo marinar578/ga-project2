@@ -97,7 +97,8 @@ class Server < Sinatra::Base
     login(:articles)
   end
 
-# -------------------------------------
+# add new article
+  # -------------------------------------
   get "/create" do
     @categories = db.exec_params("SELECT * FROM categories ORDER BY name").to_a
     login(:create_article)
@@ -107,28 +108,47 @@ class Server < Sinatra::Base
     title = params[:title]
     content = params[:content]
     user_id = current_user["id"]
-
     category = params[:category].to_i
-    # cat_id = db.exec_params("SELECT * FROM categories WHERE id = $1", [category]).first["id"]  #prob unnecessary, since category should return the same thing
-
-    # new_category = params[:new_category]
 
     @new_article = db.exec_params("INSERT INTO articles (title, content, user_id) VALUES ($1, $2, $3) RETURNING id", [title, content,  user_id]).first["id"].to_i
     db.exec_params("INSERT INTO updates (title, user_id, article_id, category_id, content) VALUES ($1, $2, $3, $4, $5)", [title, user_id, @new_article, category, content])
     db.exec_params("INSERT INTO cat_art (article_id, category_id) VALUES ($1, $2)", [@new_article, category])
-       
-    # if new_category
-    #     new_cat_id = db.exec_params("INSERT INTO categories (name) VALUES ($1) RETURNING id", [category])
-    #     db.exec_params("INSERT INTO cat_art (article_id, category_id) VALUES ($1, $2)", [@new_article, new_cat_id])
-    # else
-    #     if category == "None"
-    #         db.exec_params("INSERT INTO cat_art (article_id) VALUES ($1)", [@new_article])
-    #     else
-    #         db.exec_params("INSERT INTO cat_art (article_id, category_id) VALUES ($1, $2)", [@new_article, cat_id])
-    #     end
-    # end
 
     redirect "/articles/#{@new_article}"
+  end
+
+
+# edit article
+  # -------------------------------------
+  get "/articles/:id/edit" do
+    @article = db.exec_params("SELECT articles.id, articles.title, articles.user_id, articles.content, users.fname, users.lname FROM articles JOIN users ON users.id = articles.user_id WHERE articles.id = $1", [params[:id]]).first
+    @categories = db.exec_params("SELECT * FROM categories ORDER BY name").to_a
+    login(:update_article)
+  end
+
+  put "/articles/:id/edit" do
+    title = params[:title]
+    content = params[:content]
+    user_id = current_user["id"].to_i
+    category = params[:category].to_i
+  
+    @time = db.exec_params("INSERT INTO updates (title, user_id, article_id, category_id, content) VALUES ($1, $2, $3, $4, $5) RETURNING update_time", [title, user_id, params[:id], category, content]).first["update_time"]
+    db.exec_params("UPDATE articles SET title = $1, content = $2, creation_time = $3, user_id = $4 WHERE id = $5", [title, content, @time, user_id, params[:id]])
+    db.exec_params("UPDATE cat_art SET category_id = $1 WHERE article_id = $2", [category, params[:id]])
+
+    redirect "/articles/#{params[:id]}"
+  end
+
+# delete article
+  # -------------------------------------
+  delete "/articles/:id/edit" do
+    user_id = current_user["id"].to_i
+
+    db.exec_params("DELETE FROM updates WHERE article_id = $1", [params[:id]])
+    db.exec_params("DELETE FROM cat_art WHERE article_id = $1", [params[:id]])
+    db.exec_params("DELETE FROM articles WHERE id = $1", [params[:id]])
+
+    redirect "/articles"
   end
 
 # -------------------------------------
@@ -174,45 +194,6 @@ class Server < Sinatra::Base
     @articles = db.exec_params("SELECT articles.id, articles.title, articles.creation_time, articles.user_id, articles.content, users.fname, users.lname FROM articles JOIN users ON articles.user_id = users.id WHERE users.id = $1", [params[:id]]).to_a
     login(:user)
   end
-
-
-# edit article
-  # -------------------------------------
-  get "/articles/:id/edit" do
-    @article = db.exec_params("SELECT articles.id, articles.title, articles.user_id, articles.content, users.fname, users.lname FROM articles JOIN users ON users.id = articles.user_id WHERE articles.id = $1", [params[:id]]).first
-    @categories = db.exec_params("SELECT * FROM categories ORDER BY name").to_a
-    login(:update_article)
-  end
-
-  put "/articles/:id/edit" do
-    title = params[:title]
-    content = params[:content]
-    user_id = current_user["id"].to_i
-    category = params[:category].to_i
-  
-    @time = db.exec_params("INSERT INTO updates (title, user_id, article_id, category_id, content) VALUES ($1, $2, $3, $4, $5) RETURNING update_time", [title, user_id, params[:id], category, content]).first["update_time"]
-    db.exec_params("UPDATE articles SET title = $1, content = $2, creation_time = $3 WHERE id = $4", [title, content, @time, params[:id]])
-    db.exec_params("UPDATE cat_art SET category_id = $1 WHERE article_id = $2", [category, params[:id]])
-
-    redirect "/articles/#{params[:id]}"
-  end
-
-# delete article
-  # -------------------------------------
-  delete "/articles/:id/edit" do
-    user_id = current_user["id"].to_i
-
-    db.exec_params("DELETE FROM updates WHERE article_id = $1", [params[:id]])
-    db.exec_params("DELETE FROM cat_art WHERE article_id = $1", [params[:id]])
-    db.exec_params("DELETE FROM articles WHERE id = $1", [params[:id]])
-
-    redirect "/articles"
-  end
-
-
-# add category
-  # -------------------------------------
-
 
 
 # edit user info (name, pw, email)

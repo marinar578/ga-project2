@@ -22,17 +22,15 @@
 
 
         <button class="btn" type="submit">Submit</button>
-
-        <input type="hidden" name="_method" value="delete">
-        <button class="btn" id="delete" type="submit">Delete article</button>
-
       </form>
 
-            
+        <form class="form_signin new_article" id="edit" method="post" action=<%="/articles/#{@article["id"]}/edit"%>>
+            <input type="hidden" name="_method" value="delete">
+            <button class="btn" id="delete" type="submit">Delete article</button>
+        </form>          
 
 
         
 
 
     </div> 
-
