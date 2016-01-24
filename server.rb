@@ -45,6 +45,12 @@ class Server < Sinatra::Base
     end
   end
 
+  # def multiple_categories(cat)
+  #   @cat_array = []
+  #   @cat_array.push(cat)
+  #   @cat_array
+  # end
+
 # -------------------------------------
   get "/" do 
     erb :index
@@ -108,11 +114,25 @@ class Server < Sinatra::Base
     title = params[:title]
     content = params[:content]
     user_id = current_user["id"]
-    category = params[:category].to_i
+
+    # adding multiple categories by saving the selected cats into array @db_cats
+    categories = db.exec_params("SELECT * FROM categories").to_a
+    @db_cats = []
+
+    # going through categories in database and adding each to the above array if it was selected
+    categories.each do |cat|
+      if params[cat["id"]]
+        @db_cats.push(params[cat["id"]].to_i) 
+      end
+    end
 
     @new_article = db.exec_params("INSERT INTO articles (title, content, user_id) VALUES ($1, $2, $3) RETURNING id", [title, content,  user_id]).first["id"].to_i
-    db.exec_params("INSERT INTO updates (title, user_id, article_id, category_id, content) VALUES ($1, $2, $3, $4, $5)", [title, user_id, @new_article, category, content])
-    db.exec_params("INSERT INTO cat_art (article_id, category_id) VALUES ($1, $2)", [@new_article, category])
+    
+    # inserting category id into updates and cat_art tables (THERE'S GOTTA BE A BETTER WAY, THIS PROBABLY OPENS THE DATABASE CONNECTION LIKE A HUNDRED TIMES)
+    @db_cats.each do |cat|
+      db.exec_params("INSERT INTO updates (title, user_id, article_id, category_id, content) VALUES ($1, $2, $3, $4, $5)", [title, user_id, @new_article, cat, content])
+      db.exec_params("INSERT INTO cat_art (article_id, category_id) VALUES ($1, $2)", [@new_article, cat])
+    end
 
     redirect "/articles/#{@new_article}"
   end
