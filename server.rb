@@ -145,6 +145,16 @@ class Server < Sinatra::Base
     login(:categories)
   end
 
+  post "/categories" do
+    if params[:category].length > 0
+      db.exec_params("INSERT INTO categories (name) VALUES ($1)", [params[:category]])
+      redirect "/categories"
+    else
+      @error = "Please enter a category"
+    end
+  end
+
+
 # -------------------------------------
   get "/categories/:id" do
     @category = db.exec_params("SELECT * FROM categories WHERE id = $1", [params[:id]]).first
@@ -165,15 +175,6 @@ class Server < Sinatra::Base
     login(:user)
   end
 
-# edit user info (name, pw, email)
-  # -------------------------------------
-  get "/users/:id/edit" do
-    if current_user.length>0
-      @user = db.exec_params("SELECT * FROM users WHERE id = $1", [current_user["id"]]).first
-    end
-    # @articles = db.exec_params("SELECT articles.id, articles.title, articles.creation_time, articles.user_id, articles.content, users.fname, users.lname FROM articles JOIN users ON articles.user_id = users.id").to_a
-    login(:update_user_info)
-  end
 
 # edit article
   # -------------------------------------
@@ -188,7 +189,6 @@ class Server < Sinatra::Base
     content = params[:content]
     user_id = current_user["id"].to_i
     category = params[:category].to_i
-    time = Date
   
     @time = db.exec_params("INSERT INTO updates (title, user_id, article_id, category_id, content) VALUES ($1, $2, $3, $4, $5) RETURNING update_time", [title, user_id, params[:id], category, content]).first["update_time"]
     db.exec_params("UPDATE articles SET title = $1, content = $2, creation_time = $3 WHERE id = $4", [title, content, @time, params[:id]])
@@ -197,15 +197,31 @@ class Server < Sinatra::Base
     redirect "/articles/#{params[:id]}"
   end
 
+# delete article
+  # -------------------------------------
+  delete "/articles/:id/edit" do
+    user_id = current_user["id"].to_i
+
+    db.exec_params("DELETE FROM updates WHERE article_id = $1", [params[:id]])
+    db.exec_params("DELETE FROM cat_art WHERE article_id = $1", [params[:id]])
+    db.exec_params("DELETE FROM articles WHERE id = $1", [params[:id]])
+
+    redirect "/articles"
+  end
+
 
 # add category
   # -------------------------------------
 
 
 
-# view user profile/ edit user info
+# edit user info (name, pw, email)
   # -------------------------------------
-
+  get "/users/:id/edit" do
+    @user = db.exec_params("SELECT * FROM users WHERE id = $1", [current_user["id"]]).first
+    # @articles = db.exec_params("SELECT articles.id, articles.title, articles.creation_time, articles.user_id, articles.content, users.fname, users.lname FROM articles JOIN users ON articles.user_id = users.id").to_a
+    login(:user_profile)
+  end
 
 
 # sign out

@@ -35,7 +35,7 @@
             <% if current_user%>
               <li  id="current-user"><a href=<%="/users/#{current_user["id"]}"%>><%= current_user["fname"] %></a>
                 <ul class="sub_main_navigation">
-                  <li><a href="#">Profile</a></li>
+                  <li><a href=<%= "users/#{current_user["id"]}/edit" %>>Profile</a></li>
                   <li><a href="/signout">Signout</a></li>
                 </ul>
               </li>

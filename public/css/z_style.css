@@ -10,7 +10,7 @@ ul {
   text-decoration: none;
 }
 
-/* New Article Form */
+/* New Article/ Update Article Form */
 form.new_article div.input{
   padding: 6px 0;
 }
@@ -33,6 +33,20 @@ div.category {
     padding: 20px 0;
 }
 
+/* delete button in form view */
+#delete {
+  float: right;
+}
+
+form#delete a{
+  color: #6F6F6F;
+}
+
+form#delete a:hover{
+  color: black;
+  text-decoration: none;
+}
+
 /* getting the hover to work over curr user */
 
 ul#header-nav li {
@@ -44,7 +58,6 @@ ul#header-nav li {
 ul#header-nav li a.hover,
 ul#header-nav li a:hover {
   background: #EEEEEE;
-  /*border-radius: 10px 10px 0 0;*/
 }
 
 
@@ -55,9 +68,24 @@ ul.sub_main_navigation {
   display: none;
   border-radius: 0 10px 10px 10px;
   padding-top: 10px;
+  width: 78px;
 }
 
 ul#header-nav li ul.sub_main_navigation li {
   display: block;
   padding: 0 30px 10px 0;
+  position: relative;
+  left: -20px;
 }
+
+/* add category bar */
+.cat {
+  display: none;
+  position: relative;
+  left:-20px;
+}
+
+/*table.categories {
+  padding-top: 150px;
+}*/
+
