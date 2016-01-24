@@ -1,1 +1,39 @@
-<h1><%= "#{@user["email"]}" %></h1>
+    <div class="container">
+
+
+
+      <form class="form_signin user-update-form" id="edit" method="post" action=<%="/users/#{@user["id"]}/edit"%>>
+      <input type="hidden" name="_method" value="put">
+
+        <h3> General Account Settings </h3><br>
+
+
+        <label for="fname">First Name</label>
+        <div class="user-update"> <input type="text" name="fname" class="form-control" value= <%= @user["fname"] %> autofocus></div>
+
+        <label for="lname">Last Name</label>
+        <div class="user-update"><input type="text" name="lname" class="form-control" value= <%= @user["lname"] %> autofocus></div>
+
+        <label for="email">Email</label>
+        <div class="user-update"><input type="text" name="email" class="form-control" value= <%= @user["email"] %> autofocus></div>
+
+        <label for="image">Image URL</label>
+        <div class="user-update"><input type="text" name="image" class="form-control" value= <%= @user["image"] %> autofocus></div>
+
+
+        <label for="password">Reset Password:</label>
+        <div class="user-update"><input type="text" name="password" class="form-control" autofocus></div>
+
+
+        <button class="btn" type="submit">Submit</button>
+
+
+      </form>
+
+            
+
+
+        
+
+
+    </div> 

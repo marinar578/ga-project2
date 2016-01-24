@@ -223,6 +223,17 @@ class Server < Sinatra::Base
     login(:user_profile)
   end
 
+  put "/users/:id/edit" do
+    if params[:password].length > 0
+      password = BCrypt::Password.create(params[:password])
+    else
+      password = db.exec_params("SELECT password_digest FROM users WHERE id = $1", [params[:id]]).first["password_digest"]
+    end
+    
+    db.exec_params("UPDATE users SET fname = $1, lname = $2, email = $3, password_digest = $4, image = $5 WHERE id = $6", [params[:fname], params[:lname], params[:email], password, params[:image], params[:id]])
+    redirect "/users/#{params[:id]}/edit"
+  end
+
 
 # sign out
   # -------------------------------------
