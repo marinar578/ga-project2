@@ -45,12 +45,6 @@ class Server < Sinatra::Base
     end
   end
 
-  # def multiple_categories(cat)
-  #   @cat_array = []
-  #   @cat_array.push(cat)
-  #   @cat_array
-  # end
-
 # -------------------------------------
   get "/" do 
     erb :index
@@ -103,12 +97,27 @@ class Server < Sinatra::Base
     login(:articles)
   end
 
+# view specific article
   # -------------------------------------
   get "/articles/:id" do
     @article = db.exec_params("SELECT articles.id, articles.title, articles.user_id, articles.creation_time, articles.content, users.fname, users.lname FROM articles JOIN users ON users.id = articles.user_id WHERE articles.id = $1", [params[:id]]).first
     @date = @article["creation_time"].to_datetime.to_date
+    @updates = db.exec_params("SELECT updates.id, updates.update_time, updates.user_id, users.fname, users.lname FROM updates JOIN users ON updates.user_id = users.id WHERE article_id = $1", [params[:id]]).to_a
     markdown
     login(:article)
+  end
+
+# view specific update
+  # -------------------------------------
+  get "/articles/updates/:id" do
+    @update = db.exec_params("SELECT updates.id, updates.title, updates.user_id, updates.update_time, updates.content, users.fname, users.lname FROM updates JOIN users ON users.id = updates.user_id WHERE updates.id = $1", [params[:id]]).first
+    @date = @update["update_time"].to_datetime.to_date
+    
+    renderer = Redcarpet::Render::HTML
+    markdown = Redcarpet::Markdown.new(renderer, extensions = {})
+    @content = markdown.render(@update["content"])
+
+    login(:update)
   end
 
 # add new article
@@ -246,7 +255,6 @@ class Server < Sinatra::Base
   # -------------------------------------
   get "/users/:id/edit" do
     @user = db.exec_params("SELECT * FROM users WHERE id = $1", [current_user["id"]]).first
-    # @articles = db.exec_params("SELECT articles.id, articles.title, articles.creation_time, articles.user_id, articles.content, users.fname, users.lname FROM articles JOIN users ON articles.user_id = users.id").to_a
     login(:user_profile)
   end
 

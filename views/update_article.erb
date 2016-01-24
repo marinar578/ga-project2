@@ -5,7 +5,7 @@
       <input type="hidden" name="_method" value="put">
         <h2 class="form-signin-heading">Update article</h2>
 
-        <div class="input"><input type="text" name="title" class="form-control" value= <%= @article["title"] %> required autofocus></div>
+        <div class="input"><textarea name="title" class="form-control" id="update-title" required autofocus> <%= @article["title"] %>  </textarea></div>
 
         <div class="input"><textarea name="content" class="form-control" required autofocus> <%= @article["content"] %> </textarea></div>
 
@@ -13,12 +13,18 @@
 
 
         <button class="btn" type="submit">Submit</button>
+
+
       </form>
+      <br>
+
 
         <form class="form_signin new_article" id="edit" method="post" action=<%="/articles/#{@article["id"]}/edit"%>>
             <input type="hidden" name="_method" value="delete">
             <button class="btn" id="delete" type="submit">Delete article</button>
-        </form>          
+        </form> 
+
+        
 
 
         

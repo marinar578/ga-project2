@@ -29,14 +29,24 @@ form.new_article textarea.form-control {
   font-size: 16px;
 }
 
+form.new_article textarea#update-title {
+  position: relative;
+  height: 30pt;
+    -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+
 div.category {
     padding: 20px 0;
 }
 
 /* delete button in form view */
-#delete {
+/*#delete {
   float: right;
-}
+}*/
 
 form#delete a{
   color: #6F6F6F;
@@ -95,3 +105,8 @@ ul#header-nav li ul.sub_main_navigation li {
   margin-top: 50px;
 }
 
+
+/*updates table*/
+.updates-table {
+  width: 400px;
+}

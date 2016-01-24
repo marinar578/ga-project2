@@ -20,7 +20,33 @@
           
         </div><!-- /.blog-main -->
 
-      
+        
+          <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          <div class="sidebar-module sidebar-module-inset updates-table">
+            <h4>Updates to <%= @article["title"] %></h4>
+            <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Updated by:</th>
+                  <th>Updated on:</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @updates.each do |update| %>
+                    <tr>
+                      <td><a href=<%= "/users/#{update["user_id"]}" %>><%= update["fname"] %></a></td>
+                      <td><a href=<%= "/articles/updates/#{update["id"]}" %>><%= update["update_time"].to_datetime.to_date %></a></td>
+                    </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+            
+          </div>
+          </div>
+
+        <!-- /.blog-sidebar -->
 
       </div><!-- /.row -->
 

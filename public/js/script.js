@@ -25,13 +25,16 @@ $(document).ready(function(){
         if(event.which==13){       
             var userInput= $('#search').val();
             var userId = $('#'+userInput);
+            var inputToReg = new RegExp(userInput, 'i');
 
             if (userInput.length > 0) {
                 $('.article_titles').hide();
-                    // userId.show();
+                // use the following line to show only articles whose tites match the search exactly
+                // userId.show();
 
+                //use this code to show articles whose titles match part of the search
                 for(i=0; i<$('.article_titles').length; i++){
-                   if (($('.article_titles')[i]["id"]).match(userInput)) {
+                   if (($('.article_titles')[i]["id"]).match(inputToReg)) {
                      $('.article_titles:nth-child('+ (i+1) +')').show();
                    };
                 };
