@@ -4,25 +4,25 @@
 
       <div class="row">
 
-        <div class="col-sm-8 blog-main">
+        <!-- <div class="col-sm-8 blog-main"> -->
 
           <div class="blog-post">
             <h2 class="blog-post-title"><%= @article["title"] %></h2>
             
             
             <p class="blog-post-meta"> by <a href=<%="/users/#{@article["user_id"]}"%>><%= @article["fname"] %></a></p>
-            <p class="blog-post-meta">Updated on <%= @date%> </p>
+            <p class="blog-post-meta">Updated on <%= "#{@date.to_datetime.to_date.strftime("%b %d, %Y")} at #{@date.to_time.strftime("%I:%M %p")}" %> </p>
             <p><%= @content %></p>
             
           </div><!-- /.blog-post -->
 
           <p><a class="btn btn-lg btn-success" href=<%="/articles/#{@article["id"]}/edit"%> role="button">Edit article</a></p>
           
-        </div><!-- /.blog-main -->
+        </><!-- /.blog-main -->
 
         
-          <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-          <div class="sidebar-module sidebar-module-inset updates-table">
+
+          <div class="updates-table">
             <h4>Updates to <%= @article["title"] %></h4>
             <div class="table-responsive">
             <table class="table table-striped">
@@ -36,17 +36,14 @@
                 <% @updates.each do |update| %>
                     <tr>
                       <td><a href=<%= "/users/#{update["user_id"]}" %>><%= update["fname"] %></a></td>
-                      <td><a href=<%= "/articles/updates/#{update["id"]}" %>><%= update["update_time"].to_datetime.to_date %></a></td>
+                      <td><a href=<%= "/articles/updates/#{update["id"]}" %>><%= "#{update["update_time"].to_datetime.to_date} at #{update["update_time"].to_time.strftime("%I:%M %p")}" %></a></td>
                     </tr>
                 <% end %>
               </tbody>
             </table>
           </div>
-            
-          </div>
           </div>
 
-        <!-- /.blog-sidebar -->
 
       </div><!-- /.row -->
 

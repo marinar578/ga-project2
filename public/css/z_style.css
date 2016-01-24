@@ -44,10 +44,6 @@ div.category {
 }
 
 /* delete button in form view */
-/*#delete {
-  float: right;
-}*/
-
 form#delete a{
   color: #6F6F6F;
 }
@@ -57,12 +53,15 @@ form#delete a:hover{
   text-decoration: none;
 }
 
-/* getting the hover to work over curr user */
-
+/* getting the hover to work over curr user (top right) */
 ul#header-nav li {
   display: inline-block;
   padding: 12px;
   position: relative;
+}
+
+ul#header-nav li a{
+  color: black;
 }
 
 ul#header-nav li a.hover,
@@ -108,5 +107,5 @@ ul#header-nav li ul.sub_main_navigation li {
 
 /*updates table*/
 .updates-table {
-  width: 400px;
+  width: 350px;
 }
