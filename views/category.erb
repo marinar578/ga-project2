@@ -1,6 +1,14 @@
 
           <h2 class="sub-header">Articles in <%= @category["name"]%> </h2>
+
+          <div class="container">
+            Search by title: 
+            <input type="text" class="form-control" id = "search">
+          </div><br>
+
+
           <p><a class="btn btn-lg btn-success" href="/create" role="button">Add article</a></p>
+
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -13,7 +21,7 @@
               </thead>
               <tbody>
                 <% @articles.each do |art| %>
-                    <tr>
+                    <tr class = "article_titles" id = <%= art["title"] %>>
                       <td><a href=<%="/articles/#{art["id"]}"%>><%= art["title"]%></a></td>
                       <td><a href=<%= "/users/#{art["user_id"]}"%>><%= "#{art["fname"]} #{art["lname"]}"%></a></td>
                       <td><%= art["creation_time"]%></td>
@@ -30,6 +38,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/script.js"></script>

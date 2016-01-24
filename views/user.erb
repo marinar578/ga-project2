@@ -1,6 +1,13 @@
 
           <h2 class="sub-header">Articles written by <%= "#{@user["fname"]} #{@user["lname"]}"%> </h2>
-<!--           <p><a class="btn btn-lg btn-success" href="/create" role="button">Add article</a></p> -->
+          
+          <div class="container">
+            Search by title: 
+            <input type="text" class="form-control" id = "search">
+          </div><br>
+
+          <p><a class="btn btn-lg btn-success" href="/create" role="button">Add article</a></p>
+
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -13,9 +20,8 @@
               </thead>
               <tbody>
                 <% @articles.each do |art| %>
-                    <tr>
+                    <tr class = "article_titles" id = <%= art["title"] %>>
                       <td><a href=<%="/articles/#{art["id"]}"%>><%= art["title"]%></a></td>
-                      
                       <td><%= art["creation_time"]%></td>
                       <td><%= art["content"][0...100]+"..."%></td>
                     </tr>
