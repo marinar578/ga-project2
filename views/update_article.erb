@@ -9,16 +9,7 @@
 
         <div class="input"><textarea name="content" class="form-control" required autofocus> <%= @article["content"] %> </textarea></div>
 
-        <div class="category">
-            <label for="category">Choose a category</label>
-            <select class="form-control" name="category">
-                <% @categories.each do |cat| %>
-                    <option value=<%="#{cat["id"]}"%>><%= "#{cat["name"]}"%></option>
-                <% end %>
-                <option value=<%="#{@categories.last["id"].to_i + 1}"%>>None</option>
-                
-            </select>
-        </div>
+
 
 
         <button class="btn" type="submit">Submit</button>

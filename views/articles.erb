@@ -1,5 +1,15 @@
 
           <h2 class="sub-header">Articles</h2>
+
+          <div class="container">
+            <p><button class="btn btn-lg btn-success" id="title-search">Search by title: </button></p>
+
+            <form class="navbar-form cat" method="post" action=<%="/articles"%>>
+              <input type="text" class="form-control" name="search">
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+          </div>
+
           <p><a class="btn btn-lg btn-success" href="/create" role="button">Add article</a></p>
           <div class="table-responsive">
             <table class="table table-striped">
