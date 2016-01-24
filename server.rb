@@ -103,6 +103,7 @@ class Server < Sinatra::Base
     @article = db.exec_params("SELECT articles.id, articles.title, articles.user_id, articles.creation_time, articles.content, users.fname, users.lname FROM articles JOIN users ON users.id = articles.user_id WHERE articles.id = $1", [params[:id]]).first
     @date = @article["creation_time"]
     @updates = db.exec_params("SELECT updates.id, updates.update_time, updates.user_id, users.fname, users.lname FROM updates JOIN users ON updates.user_id = users.id WHERE article_id = $1", [params[:id]]).to_a
+    @categories = db.exec_params("SELECT categories.name FROM categories JOIN cat_art ON categories.id = cat_art.category_id JOIN articles ON cat_art.article_id = articles.id WHERE articles.id = $1", [params[:id]]).to_a
     markdown
     login(:article)
   end

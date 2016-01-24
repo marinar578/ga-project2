@@ -11,6 +11,12 @@
             
             
             <p class="blog-post-meta"> by <a href=<%="/users/#{@article["user_id"]}"%>><%= @article["fname"] %></a></p>
+
+            <% @categories.each do |cat| %>  
+              <span class="blog-post-meta"> #<%= cat["name"] %>  </span>
+            <% end %>
+            <br><br>
+
             <p class="blog-post-meta">Updated on <%= "#{@date.to_datetime.to_date.strftime("%b %d, %Y")} at #{@date.to_time.strftime("%I:%M %p")}" %> </p>
             <p><%= @content %></p>
             
