@@ -203,7 +203,17 @@ class Server < Sinatra::Base
 
 
 
+# view user profile/ edit user info
   # -------------------------------------
+
+
+
+# sign out
+  # -------------------------------------
+  get "/signout" do
+    session.clear
+    redirect "/"
+  end
 
 
   # -------------------------------------

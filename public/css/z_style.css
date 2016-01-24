@@ -6,6 +6,10 @@ header{
     color: blue;
 }
 
+ul {
+  text-decoration: none;
+}
+
 /* New Article Form */
 form.new_article div.input{
   padding: 6px 0;
@@ -29,5 +33,31 @@ div.category {
     padding: 20px 0;
 }
 
-/* Next thing*/
+/* getting the hover to work over curr user */
 
+ul#header-nav li {
+  display: inline-block;
+  padding: 12px;
+  position: relative;
+}
+
+ul#header-nav li a.hover,
+ul#header-nav li a:hover {
+  background: #EEEEEE;
+  /*border-radius: 10px 10px 0 0;*/
+}
+
+
+ul.sub_main_navigation {
+  position: absolute;
+  top: 52px;
+  background: #EEEEEE;
+  display: none;
+  border-radius: 0 10px 10px 10px;
+  padding-top: 10px;
+}
+
+ul#header-nav li ul.sub_main_navigation li {
+  display: block;
+  padding: 0 30px 10px 0;
+}
