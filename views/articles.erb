@@ -22,7 +22,7 @@
               </thead>
               <tbody>
                 <% @articles.each do |art| %>
-                    <tr class = "article_titles" <%=id="#{art["title"]}" %> %>>
+                    <tr class = "article_titles" id = <%="#{art["title"]}"%>>
                       <td><a href=<%="/articles/#{art["id"]}"%>><%= art["title"]%></a></td>
                       <td><a href=<%= "/users/#{art["user_id"]}"%>><%= "#{art["fname"]} #{art["lname"]}"%></a></td>
                       <td><%= art["creation_time"]%></td>
