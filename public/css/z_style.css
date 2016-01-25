@@ -1,13 +1,62 @@
 body{
-    background-color: #E0E0E0 ;
+    background-color: #fcfbef ;
+    text-align: center;    
 }
 
+
 header{
-    color: blue;
+    background-color: blue;
 }
 
 ul {
   text-decoration: none;
+}
+
+.lead{
+  text-align: center;
+  margin-top: 30px;
+  color: white;
+}
+
+.my-btn {
+  background-color: #F3EAB6;
+  border: none;
+  color: black;
+}
+
+.my-btn:hover {
+  background-color: #eddeb1;
+  color: black;
+}
+
+#signup{
+  background-color: #F3EAB6;
+  font-size: 30px;
+  padding: 10px 15px;
+  font-size: 25px;
+}
+
+#signup:hover{
+  text-shadow: none;
+  background-color: #eddeb1;
+  color: black;
+
+}
+
+#login {
+  background-color: rgba(0,0,0,0);
+  padding: 0;
+  color: black;
+}
+
+.jumbotron {
+  margin-top: 30px;
+  height: 250pt;
+  background-color: rgba(0,0,0,0);
+  color: white;
+  text-shadow: 2px 2px black;
+  background-image: url(http://www.soletopia.com/wp-content/uploads/2012/10/montblanc-fountain-pen-set-beautiful-classy-elegant-580x385.jpg);
+  background-size: 100%;
 }
 
 /* New Article/ Update Article Form */
@@ -66,7 +115,7 @@ ul#header-nav li a{
 
 ul#header-nav li a.hover,
 ul#header-nav li a:hover {
-  background: #EEEEEE;
+  background: #F3EAB6;
   border-radius: 0;
 }
 
@@ -74,9 +123,8 @@ ul#header-nav li a:hover {
 ul.sub_main_navigation {
   position: absolute;
   top: 52px;
-  background: #EEEEEE;
+  background: #F3EAB6;
   display: none;
-  /*border-radius: 0 0 10px 10px;*/
   padding-top: 10px;
   width: 75px;
 }
@@ -86,6 +134,23 @@ ul#header-nav li ul.sub_main_navigation li {
   padding: 0 30px 10px 0;
   position: relative;
   left: -25px;
+  font-size: 10pt;
+}
+
+ul#header-nav li ul.sub_main_navigation li a{
+  width: 10pt;
+}
+
+
+#logo a{
+  position: relative;
+  top: 7pt;
+  color: black;
+  padding: 0;
+}
+
+#logo a:hover{
+  text-decoration: none;
 }
 
 /* add category bar */
@@ -108,4 +173,20 @@ ul#header-nav li ul.sub_main_navigation li {
 /*updates table*/
 .updates-table {
   width: 350px;
+}
+
+
+
+
+
+td {
+  text-align: left;
+}
+
+#category {
+
+  background-color: #F3EAB6;
+  border: none;
+  color: black;
+
 }

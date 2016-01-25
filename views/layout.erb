@@ -12,11 +12,13 @@
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
     <link href="/css/z_index.css" rel="stylesheet">
     <link href="/css/z_articles.css" rel="stylesheet">
     <link href="/css/z_signin.css" rel="stylesheet">
     <link href="/css/z_article.css" rel="stylesheet">
     <link href="/css/z_style.css" rel="stylesheet">
+
 
     <script src="/js/ie-emulation-modes-warning.js"></script>
     <script src="/js/jquery-1.11.3.min.js"></script>
@@ -36,14 +38,14 @@
               <li  id="current-user"><a href=<%="/users/#{current_user["id"]}"%>><%= current_user["fname"] %></a>
                 <ul class="sub_main_navigation">
                   <li><a href=<%= "users/#{current_user["id"]}/edit" %>>Profile</a></li>
-                  <li><a href="/signout">Signout</a></li>
+                  <li><a href="/signout">Sign out</a></li>
                 </ul>
               </li>
 
             <%end%>
           </ul>
         </nav>
-        <h3 class="text-muted"><a href="/">wecreate</a></h3>
+        <h3 class="text-muted" id="logo"><a href="/">wecreate</a></h3>
         <%= yield %>
       <footer class="footer">
         <p>&copy; 2016 wecreate.</p>
