@@ -55,7 +55,8 @@ ul {
   background-color: rgba(0,0,0,0);
   color: white;
   text-shadow: 2px 2px black;
-  background-image: url(http://www.soletopia.com/wp-content/uploads/2012/10/montblanc-fountain-pen-set-beautiful-classy-elegant-580x385.jpg);
+  /*background-image: url(http://www.soletopia.com/wp-content/uploads/2012/10/montblanc-fountain-pen-set-beautiful-classy-elegant-580x385.jpg);*/
+  background-image: url("/images/pens.png");
   background-size: 100%;
 }
 
@@ -157,12 +158,13 @@ ul#header-nav li ul.sub_main_navigation li a{
 .cat {
   display: none;
   position: relative;
-  left:-20px;
+  left: 220px;
+  /*left:-20px;*/
 }
 
 
 .user-update {
-  padding: 20px 0;
+  padding: 2px 0 40px 0;
 }
 
 .user-update-form {
@@ -187,6 +189,8 @@ td {
   background-color: #F3EAB6;
   border: none;
   color: black;
+  position: relative;
+  left: -15px;
 }
 
 #category:hover{
