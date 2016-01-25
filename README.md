@@ -6,7 +6,7 @@
 is a sharing platform for creative writing projects. Use wecreate to collaboratively write and edit poetry and prose; work together to update your creative project as a group. 
 
 
-# features
+## features
 1. Create articles or edit existing articles
 1. Articles can be written in markdown and rendered with markdown formatting
 1. Search for article by title or browse through categories
@@ -19,7 +19,7 @@ is a sharing platform for creative writing projects. Use wecreate to collaborati
 
 
 
-# wireframe and tables
+## wireframe and tables
 - ERD:
 ![database tables](https://trello-attachments.s3.amazonaws.com/56a597618d216e71ec9b50c3/600x800/ffca684bb77ba196b422abad5f182bc6/IMG_0962.JPG.jpg "db tables")
 - wireframe:
