@@ -3,7 +3,7 @@
 ![wecreate site](https://trello-attachments.s3.amazonaws.com/56a59d42ccb6b3bb7541b7a9/1618x1290/bb07a058042325080eed8dda68fcbe38/wecreate.png "wecreate site")
 
 # wecreate
-[wecreate](https://ga-project2.herokuapp.com/)is a sharing platform for creative writing projects. Use wecreate to collaboratively write and edit poetry and prose; work together to update your creative project as a group. 
+[wecreate](https://ga-project2.herokuapp.com/) is a sharing platform for creative writing projects. Use wecreate to collaboratively write and edit poetry and prose; work together to update your creative project as a group. 
 
 
 ## features
@@ -20,10 +20,10 @@
 
 
 ## wireframe and tables
-- ERD:
-![database tables](https://trello-attachments.s3.amazonaws.com/56a597618d216e71ec9b50c3/600x800/ffca684bb77ba196b422abad5f182bc6/IMG_0962.JPG.jpg "db tables")
-- wireframe:
-![wireframe](https://trello-attachments.s3.amazonaws.com/56a5973f57cedfd3feaf1c1b/600x800/7c30e483eb9a836eaaf2edd4fa84197b/IMG_0964.JPG.jpg "wireframe")
+ERD:
+- ![database tables](https://trello-attachments.s3.amazonaws.com/56a597618d216e71ec9b50c3/600x800/ffca684bb77ba196b422abad5f182bc6/IMG_0962.JPG.jpg "db tables")
+wireframe:
+- ![wireframe](https://trello-attachments.s3.amazonaws.com/56a5973f57cedfd3feaf1c1b/600x800/7c30e483eb9a836eaaf2edd4fa84197b/IMG_0964.JPG.jpg "wireframe")
 
 
 #### additional features to come!
