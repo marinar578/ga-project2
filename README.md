@@ -1,6 +1,6 @@
 # PROJECT 2: Wiki
 
-![wecreate site](public/css/images/wecreate.png "wecreate site")
+![wecreate site](/css/images/wecreate.png "wecreate site")
 
 # wecreate
 is a sharing platform for creative writing projects. Use wecreate to collaboratively write and edit poetry and prose; work together to update your creative project as a group. 
