@@ -33,11 +33,17 @@ $(document).ready(function(){
                 // userId.show();
 
                 //use this code to show articles whose titles match part of the search
+                // for(i=0; i<$('.article_titles').length; i++){
+                //    if (($('.article_titles')[i]["id"]).match(inputToReg)) {
+                //      $('.article_titles:nth-child('+ (i+1) +')').show();
+                //    };
+                // };
                 for(i=0; i<$('.article_titles').length; i++){
-                   if (($('.article_titles')[i]["id"]).match(inputToReg)) {
+                   if ($('.article_titles td:nth-child(1)').text()).match(inputToReg)) {
                      $('.article_titles:nth-child('+ (i+1) +')').show();
                    };
                 };
+                
             };
             if (userInput.length == 0) {
                 $('.article_titles').show();
