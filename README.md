@@ -1,8 +1,8 @@
 # PROJECT 2: Wiki
 
-![wecreate site](/css/images/wecreate.png "wecreate site")
+![wecreate site](https://trello-attachments.s3.amazonaws.com/56a59d42ccb6b3bb7541b7a9/1618x1290/bb07a058042325080eed8dda68fcbe38/wecreate.png "wecreate site")
 
-# wecreate
+# [wecreate](https://ga-project2.herokuapp.com/)
 is a sharing platform for creative writing projects. Use wecreate to collaboratively write and edit poetry and prose; work together to update your creative project as a group. 
 
 
