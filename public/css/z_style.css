@@ -184,9 +184,12 @@ td {
 }
 
 #category {
-
   background-color: #F3EAB6;
   border: none;
   color: black;
+}
 
+#category:hover{
+  background-color: #eddeb1;
+  color: black;
 }
